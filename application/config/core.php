@@ -54,8 +54,8 @@ $config['g_status'] = array(
 	4 => 'reject',
 );
 
-$config['judul_aplikasi'] = 'GRAHA FAMILY OFFICE';
-$config['nama_aplikasi'] = 'GRAHA FAMILY OFFICE';
+$config['judul_aplikasi'] = 'CARP';
+$config['nama_aplikasi'] = 'CARP';
 
 $config['date'] = date('Y-m-d');
 

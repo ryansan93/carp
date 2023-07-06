@@ -2,9 +2,9 @@
 namespace Model\Storage;
 use \Model\Storage\Conf as Conf;
 
-class User_model extends Conf {
-	protected $table = 'user';
+class Divisi_model extends Conf {
+	protected $table = 'divisi';
 	protected $primaryKey = 'kode';
-	protected $kodeTable = 'USR';
+	protected $kodeTable = 'DIV';
     public $timestamps = false;
 }

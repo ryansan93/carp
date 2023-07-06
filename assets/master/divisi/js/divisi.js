@@ -1,17 +1,17 @@
-var user = {
+var divisi = {
 	start_up: function(){
-		user.getLists();
+		divisi.getLists();
 	}, // end - start_up
 
 	getLists : function(){
 		$.ajax({
-			url : 'master/User/getLists',
+			url : 'master/Divisi/getLists',
 			data : {},
 			dataType : 'HTML',
 			type : 'GET',
 			beforeSend : function(){ showLoading(); },
 			success : function(html){
-				$('table.tbl_user tbody').html(html);
+				$('table.tbl_divisi tbody').html(html);
 
 				hideLoading();
 			}
@@ -36,7 +36,7 @@ var user = {
         if ( vhref == 'action' ) {
             var v_id = $(elm).attr('data-id');
 
-            user.loadForm(v_id, edit);
+            divisi.loadForm(v_id, edit);
         };
     }, // end - changeTabActive
 
@@ -44,7 +44,7 @@ var user = {
         var dcontent = $('div#action');
 
         $.ajax({
-            url : 'master/User/loadForm',
+            url : 'master/Divisi/loadForm',
             data : {
                 'id' :  v_id,
                 'resubmit' : resubmit
@@ -91,16 +91,16 @@ var user = {
 		if ( err > 0 ) {
 			bootbox.alert('Harap lengkapi data terlebih dahulu.');
 		} else {
-			bootbox.confirm('Apakah anda yakin ingin menyimpan data user ?', function(result){
+			bootbox.confirm('Apakah anda yakin ingin menyimpan data divisi ?', function(result){
 				if (result) {
-					var nama_user = $('input.nama').val();
+					var nama = $('input.nama').val();
 
 					var params = {
-						'nama_user' : nama_user
+						'nama' : nama
 					};
 
 					$.ajax({
-						url : 'master/User/save',
+						url : 'master/Divisi/save',
 			            type: 'post',
 						dataType: 'json',
 			            data: {
@@ -114,7 +114,7 @@ var user = {
 							if ( data.status == 1 ) {
 								bootbox.alert(data.message, function(){
 									location.reload();
-									// user.getLists();
+									// divisi.getLists();
 									// bootbox.hideAll();
 								});
 							} else {
@@ -141,18 +141,18 @@ var user = {
 		if ( err > 0 ) {
 			bootbox.alert('Harap lengkapi data terlebih dahulu.');
 		} else {
-			bootbox.confirm('Apakah anda yakin ingin meng-ubah data user ?', function(result){
+			bootbox.confirm('Apakah anda yakin ingin meng-ubah data divisi ?', function(result){
 				if (result) {
 					var kode = $('input.kode').val();
-					var nama_user = $('input.nama').val();
+					var nama = $('input.nama').val();
 
 					var params = {
 						'kode': kode,
-						'nama_user' : nama_user
+						'nama' : nama
 					};
 
 					$.ajax({
-						url : 'master/User/edit',
+						url : 'master/Divisi/edit',
 			            type: 'post',
 						dataType: 'json',
 			            data: {
@@ -166,7 +166,7 @@ var user = {
 							if ( data.status == 1 ) {
 								bootbox.alert(data.message, function(){
 									location.reload();
-									// user.getLists();
+									// divisi.getLists();
 									// bootbox.hideAll();
 								});
 							} else {
@@ -180,7 +180,7 @@ var user = {
 	}, // end - edit
 
 	delete: function() {
-		bootbox.confirm('Apakah anda yakin ingin menghapus data user ?', function(result){
+		bootbox.confirm('Apakah anda yakin ingin menghapus data divisi ?', function(result){
 			if ( result ) {
 				var kode = $('input.kode').val();
 
@@ -189,7 +189,7 @@ var user = {
 				};
 
 				$.ajax({
-					url : 'master/User/delete',
+					url : 'master/Divisi/delete',
 					dataType: 'json',
 					type: 'post',
 					data: {
@@ -215,4 +215,4 @@ var user = {
 	}, // end - delete
 };
 
-user.start_up();
+divisi.start_up();

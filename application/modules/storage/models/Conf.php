@@ -19,7 +19,7 @@ class Conf extends Eloquent
 	}
 
 	public function getDate() {
-			return $this->hydrateRaw('select getdate() waktu, left(cast(getdate() as date),10) tanggal, left(cast(getdate() as time),8) jam', array())->first()->toArray();
+		return $this->hydrateRaw('select CURRENT_TIMESTAMP() waktu, left(cast(CURRENT_TIMESTAMP() as date),10) tanggal, left(cast(CURRENT_TIMESTAMP() as time),8) jam', array())->first()->toArray();
 	}
 
 	public function getNextIdentity()
@@ -29,37 +29,9 @@ class Conf extends Eloquent
 	}
 
 	public function getNextId(){
-		$id = $this->whereRaw("SUBSTRING(".$this->primaryKey.",4,4) = cast(right(year(current_timestamp),2) as char(2))+replace(str(month(getdate()),2),' ',0)")
-								->selectRaw("'".$this->kodeTable."'+right(year(current_timestamp),2)+replace(str(month(getdate()),2),' ',0)+replace(str(substring(coalesce(max(".$this->primaryKey."),'000'),8,3)+1,3), ' ', '0') as nextId")
-								->first();
-		return $id->nextId;
-	}
-
-	public function getNextIdRibuan(){
-		$id = $this->whereRaw("SUBSTRING(".$this->primaryKey.",".(strlen($this->kodeTable)+1).",4) = cast(right(year(current_timestamp),2) as char(2))+replace(str(month(getdate()),2),' ',0)")
-								->selectRaw("'".$this->kodeTable."'+right(year(current_timestamp),2)+replace(str(month(getdate()),2),' ',0)+replace(str(substring(coalesce(max(".$this->primaryKey."),'0000'),".((strlen($this->kodeTable)+1)+4).",4)+1,4), ' ', '0') as nextId")
-								->first();
-		return $id->nextId;
-	}
-
-	public function getNextId_Ribuan2Huruf(){
-		$id = $this->whereRaw("SUBSTRING(".$this->primaryKey.",3,4) = cast(right(year(current_timestamp),2) as char(2))+replace(str(month(getdate()),2),' ',0)")
-								->selectRaw("'".$this->kodeTable."'+right(year(current_timestamp),2)+replace(str(month(getdate()),2),' ',0)+replace(str(substring(coalesce(max(".$this->primaryKey."),'0000'),8,3)+1,4), ' ', '0') as nextId")
-								->first();
-		return $id->nextId;
-	}
-
-	public function getNextDocNum($kode=''){
-		$len_docNum = strlen($kode) + 2;
-
-		$seq_docNum = ($len_docNum + 7)-1;
-
-		$_date = $this->getDate()['tanggal'];
-		$_dateNew = dateAlpha($_date);
-
-		$id = $this->whereRaw("SUBSTRING(".$this->docNum.",".$len_docNum.",5) = '".$_dateNew."'")
-				   ->selectRaw("'".$kode."'+'/'+'".$_dateNew."'+'-'+replace(str(substring(coalesce(max(".$this->docNum."),'00'),".$seq_docNum.",2)+1,2), ' ', '0') as nextId")
-				   ->first();
+		$id = $this->whereRaw("SUBSTRING(".$this->primaryKey.",4,4) = concat( cast(right(year(current_timestamp),2) as char(2)), LPAD(MONTH(current_timestamp), 2, '0') )")
+					->selectRaw("concat('".$this->kodeTable."',right(year(current_timestamp),2),LPAD(MONTH(current_timestamp), 2, '0'),case when char_length(substring( COALESCE(MAX(".$this->primaryKey."),'000'),8,3)+1) = 1 THEN concat('00', substring( COALESCE(MAX(".$this->primaryKey."),'000'),8,3)+1) when char_length(substring( COALESCE(MAX(".$this->primaryKey."),'000'),8,3)+1) = 2 THEN concat('0', substring( COALESCE(MAX(".$this->primaryKey."),'000'),8,3)+1) when char_length(substring( COALESCE(MAX(".$this->primaryKey."),'000'),8,3)+1) = 3 THEN substring( COALESCE(MAX(".$this->primaryKey."),'000'),8,3)+1 end) as nextId")
+					->first();
 
 		return $id->nextId;
 	}

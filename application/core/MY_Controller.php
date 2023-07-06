@@ -456,9 +456,9 @@ class Public_Controller extends MY_Controller
 
     $isLogin = $this->session->userdata('isLogin') || 0;
 
-    if(!$isLogin){
-      redirect('user/Login');
-    };
+    // if(!$isLogin){
+    //   redirect('user/Login');
+    // };
 
     $this->userid = $this->session->userdata('id_user');
     $this->userdata = $this->session->userdata();

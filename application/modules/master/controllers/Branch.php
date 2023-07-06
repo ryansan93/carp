@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User extends Public_Controller
+class Branch extends Public_Controller
 {
 	private $url;
 	function __construct()
@@ -14,19 +14,19 @@ class User extends Public_Controller
 		$url = $this->current_uri;
 
 		$this->add_external_js(array(
-			'assets/master/user/js/user.js'
+			'assets/master/branch/js/branch.js'
 		));
 		$this->add_external_css(array(
-			'assets/master/user/css/user.css'
+			'assets/master/branch/css/branch.css'
 		));
 
 		$data = $this->includes;
 
-		$data['title_menu'] = 'Master User';
+		$data['title_menu'] = 'Master Branch';
 
 		$content['riwayat'] = $this->riwayat();
 		$content['add_form'] = $this->addForm();
-		$data['view'] = $this->load->view('master/user/index', $content, true);
+		$data['view'] = $this->load->view('master/branch/index', $content, true);
 
 		$this->load->view($this->template, $data);
 	}
@@ -35,7 +35,7 @@ class User extends Public_Controller
 	{
 		$m_conf = new \Model\Storage\Conf();
 		$sql = "
-			select * from user
+			select * from branch
 		";
 		$d_conf = $m_conf->hydrateRaw( $sql );
 
@@ -45,7 +45,7 @@ class User extends Public_Controller
 		}
 
 		$content['data'] = $data;
-		$html = $this->load->view('master/user/list', $content, true);
+		$html = $this->load->view('master/branch/list', $content, true);
 
 		echo $html;
 	}
@@ -68,7 +68,7 @@ class User extends Public_Controller
 	public function riwayat()
 	{
 		$content = null;
-		$html = $this->load->view('master/user/riwayat', $content, true);
+		$html = $this->load->view('master/branch/riwayat', $content, true);
 
 		return $html;
 	}
@@ -76,7 +76,7 @@ class User extends Public_Controller
 	public function addForm()
 	{
 		$content = null;
-		$html = $this->load->view('master/user/addForm', $content, true);
+		$html = $this->load->view('master/branch/addForm', $content, true);
 
 		return $html;
 	}
@@ -85,7 +85,7 @@ class User extends Public_Controller
 	{
 		$m_conf = new \Model\Storage\Conf();
 		$sql = "
-			select * from user where kode = '".$id."'
+			select * from branch where kode = '".$id."'
 		";
 		$d_conf = $m_conf->hydrateRaw( $sql );
 
@@ -95,7 +95,7 @@ class User extends Public_Controller
 		}
 
 		$content['data'] = $data;
-		$html = $this->load->view('master/user/viewForm', $content, true);
+		$html = $this->load->view('master/branch/viewForm', $content, true);
 
 		return $html;
 	}
@@ -105,13 +105,13 @@ class User extends Public_Controller
 		$params = $this->input->post('params');
 
 		try {
-			$m_user = new \Model\Storage\User_model();
+			$m_branch = new \Model\Storage\Branch_model();
 
-			$kode = $m_user->getNextId();
+			$kode = $m_branch->getNextId();
 
-			$m_user->kode = $kode;
-			$m_user->nama = $params['nama_user'];
-			$m_user->save();
+			$m_branch->kode = $kode;
+			$m_branch->nama = $params['nama'];
+			$m_branch->save();
 
 			$this->result['status'] = 1;
 			$this->result['message'] = 'Data berhasil di simpan.';
@@ -127,13 +127,13 @@ class User extends Public_Controller
 		$params = $this->input->post('params');
 		
 		try {
-			$m_user = new \Model\Storage\User_model();
+			$m_branch = new \Model\Storage\Branch_model();
 
 			$kode = $params['kode'];
 
-			$m_user->where('kode', $kode)->update(
+			$m_branch->where('kode', $kode)->update(
 				array(
-					'nama' => $params['nama_user']
+					'nama' => $params['nama']
 				)
 			);
 
@@ -151,11 +151,11 @@ class User extends Public_Controller
 		$params = $this->input->post('params');
 		
 		try {
-			$m_user = new \Model\Storage\User_model();
+			$m_branch = new \Model\Storage\Branch_model();
 
 			$kode = $params['kode'];
 
-			$m_user->where('kode', $kode)->delete();
+			$m_branch->where('kode', $kode)->delete();
 
 			$this->result['status'] = 1;
 			$this->result['message'] = 'Data berhasil di hapus.';

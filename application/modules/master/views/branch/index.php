@@ -5,10 +5,10 @@
 				<div class="panel-heading no-padding">
 					<ul class="nav nav-tabs nav-justified">
 						<li class="nav-item">
-							<a class="nav-link active" data-toggle="tab" href="#riwayat" data-tab="riwayat">RIWAYAT USER</a>
+							<a class="nav-link active" data-toggle="tab" href="#riwayat" data-tab="riwayat">RIWAYAT BRANCH</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="#action" data-tab="action">USER</a>
+							<a class="nav-link" data-toggle="tab" href="#action" data-tab="action">BRANCH</a>
 						</li>
 					</ul>
 				</div>

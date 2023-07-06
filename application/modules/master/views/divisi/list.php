@@ -1,6 +1,6 @@
 <?php if ( !empty($data) && count($data) > 0 ): ?>
 	<?php foreach ($data as $key => $value): ?>
-		<tr class="cursor-p" onclick="user.changeTabActive(this)" data-href="action" data-edit="" data-id="<?php echo $value['kode']; ?>">
+		<tr class="cursor-p" onclick="divisi.changeTabActive(this)" data-href="action" data-edit="" data-id="<?php echo $value['kode']; ?>">
 			<td><?php echo $value['kode']; ?></td>
 			<td><?php echo $value['nama']; ?></td>
 		</tr>
