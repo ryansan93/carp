@@ -61,6 +61,16 @@
               </li>
             </ul>
           </li>
+          <li>
+            <a href="#transaksi" data-toggle="collapse" aria-expanded="false" data-val="0" class="dropdown-toggle list-group-item list-group-item-action bg-light-black">
+              Transaksi
+            </a>
+            <ul class="collapse list-unstyled" id="transaksi">
+              <li class="menu">
+                <a href="transaksi/CARP" class="list-group-item list-group-item-action bg-light-black menu" data-txt="CARP">CARP</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
     </div>
